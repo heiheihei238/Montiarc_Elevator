@@ -1,0 +1,22 @@
+package elevatorControl;
+
+classdiagram ElevatorIO {
+
+  public enum DoorCMD {
+    OPEN,
+    CLOSE;
+  }
+
+  public enum LiftCMD {
+    UP,
+    DOWN,
+    STOP;
+  }
+
+  public enum Direction {
+    NA,
+    UP,
+    DOWN;
+  }
+
+}

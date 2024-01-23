@@ -1,0 +1,41 @@
+plugins {
+  id 'java'
+  id 'montiarc' version '7.6.0-ws2324-SNAPSHOT'
+  id 'cd2pojo' version '7.6.0-ws2324-SNAPSHOT'
+}
+
+repositories {
+  maven {
+    url 'https://nexus.se.rwth-aachen.de/content/groups/public/'
+  }
+}
+
+dependencies {
+  // dependencies to write JUnit-tests
+  // against class diagrams and montiarc models
+  testImplementation 'de.monticore.lang:cd4analysis:7.6.0-ws2324-SNAPSHOT'
+  testImplementation 'montiarc.languages:montiarc:7.6.0-ws2324-SNAPSHOT'
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.compileCd2pojo {
+  // allow the import of Java types in class diagrams
+  useClass2Mc.set(true)
+}
+
+tasks.compileMontiarc {
+  // allow the import of Java types in montiarc models
+  useClass2Mc.set(true)
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+  // enable more output
+  testLogging {
+    events 'STARTED', 'SKIPPED', 'FAILED', 'PASSED'
+    exceptionFormat = 'full'
+    showStandardStreams = true
+  }
+}
+
